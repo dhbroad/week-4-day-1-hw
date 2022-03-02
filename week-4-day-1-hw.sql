@@ -11,9 +11,11 @@ from payment
 where amount between 3.99 and 5.99
 
 --3. What film does the store have the most of? (search in inventory)
-select *
+-- Ans: film_id 200, "Curtain Videotape"
+select film_id, count(film_id)
 from inventory
-_____________________________________
+group by film_id 
+order by count desc;
 
 --4. How many customers have the last name ‘William’?
 -- Ans: None, however, there is 1 Williams
