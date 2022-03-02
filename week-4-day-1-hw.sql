@@ -11,45 +11,53 @@ from payment
 where amount between 3.99 and 5.99
 
 --3. What film does the store have the most of? (search in inventory)
-
+select *
+from inventory
+_____________________________________
 
 --4. How many customers have the last name ‘William’?
--- Ans: None
+-- Ans: None, however, there is 1 Williams
 select last_name
 from customer
 where last_name = 'William'
 
 --5. What store employee (get the id) sold the most rentals?
--- Ans: employee 1
-select sum(amount)
-from payment
-where staff_id = 1;
---
-select sum(amount)
-from payment
-where staff_id = 2;
+-- Ans: employee 2
+select staff_id, count(amount)
+from payment p 
+group by staff_id
 
 --6. How many different district names are there?
-
+select *
+from store s 
+----------------------------------------
 
 --7. What film has the most actors in it? (use film_actor table and get film_id)
--- Ans: 993, 958, 945, 912, 879, 714, 544, 538, 537, 474, 465, 462, 419, 346, 149, 121, 116, 80, 49, 5
-select *
+-- Ans: film_id 508, Lambs Cincinatti
+select film_id, count(film_id)
 from film_actor
-order by actor_id desc;
+group by film_id
+order by count desc;
 
 --8. From store_id 1, how many customers have a last name ending with ‘es’? (use customer table)
 -- Ans: 21
-select store_id, last_name
+select count(last_name)
 from customer
 where last_name like '%es'
 
 --9. How many payment amounts (4.99, 5.99, etc.) had a number of rentals above 250 for customers
 --with ids between 380 and 430? (use group by and having > 250)
-select *
+--Ans: 11
+select count(distinct amount)
 from payment
-where amount = 4.99;
-where customer_id between 380 and 430;
+where customer_id between 380 and 430 and rental_id > 250;
 
 --10. Within the film table, how many rating categories are there? And what rating has the most
 --movies total?
+-- Ans: 5 rating categories. 
+select count(distinct rating), 
+from film
+--
+select *
+from film
+group by rating
